@@ -1,0 +1,54 @@
+{
+  "id": "workflow",
+  "version": "1.0",
+  "specVersion": "0.8",
+  "name": "Workflow",
+  "description": "Workflow",
+  "start": "Create JSON",
+  "functions": [
+    {
+      "name": "python",
+      "type": "custom",
+      "operation": "script:python"
+    }
+  ],
+  "states": [
+    {
+      "name": "Create JSON",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "python",
+            "arguments": {
+              "script": "import sys\nsys.path.append('./python')\nfrom create_json import create\njson_string = create()"
+            }
+          }
+        }
+      ],
+      "stateDataFilter" : {
+        "output" : "{json_string:$WORKFLOW.python.json_string}"
+      },
+      "transition": "Consume JSON"
+    },
+    {
+      "name": "Consume JSON",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "python",
+            "arguments": {
+              "script": "import sys\nsys.path.append('./python')\nfrom consume_json import consume\noutput = consume(json_string)",
+              "json_string" : ".json_string"
+            }
+          }
+        }
+      ],
+      "stateDataFilter" : {
+        "output" : "{output:$WORKFLOW.python.output}"
+      },
+      "end": true
+    }
+  ]
+}
