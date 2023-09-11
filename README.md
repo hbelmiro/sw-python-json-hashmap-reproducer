@@ -1,53 +1,16 @@
 # sw-python-json-hashmap-reproducer
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This is a reproducer for an issue.
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+To reproduce it, run:
 
-## Running the application in dev mode
-
-You can run your application in dev mode that enables live coding using:
-```shell script
-./mvnw compile quarkus:dev
+```bash
+mvn verify
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+Tests should pass, but instead, it throws:
 
-## Packaging and running the application
-
-The application can be packaged using:
-```shell script
-./mvnw package
+```bash
+jep.JepException: <class 'Exception'>: json_string is: <class 'java.util.HashMap'>
+		at /home/hbelmiro/dev/hbelmiro/sw-python-json-hashmap-reproducer/sw-python-json-hashmap-reproducer/./python/consume_json.consume(consume_json.py:5)
 ```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using: 
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/sw-python-json-hashmap-reproducer-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
-
-## Related Guides
-
-- Kogito - Serverless Workflow ([guide](https://quarkus.io/version/2.13/guides/kogito)): Add Kogito Serverless Workflows (SW) capabilities - Includes the Process engine capability
-- SmallRye OpenAPI ([guide](https://quarkus.io/guides/openapi-swaggerui)): Document your REST APIs with OpenAPI - comes with Swagger UI
