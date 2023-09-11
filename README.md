@@ -1,6 +1,6 @@
 # sw-python-json-hashmap-reproducer
 
-This is a reproducer for an issue.
+This is a reproducer for [an issue](https://issues.redhat.com/browse/KOGITO-9797).
 
 To reproduce it, run:
 
